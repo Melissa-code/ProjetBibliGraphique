@@ -113,8 +113,8 @@ public class AppliGraphique extends JFrame {
         container.add(monSecondBouton); // bouton CR
         container.add(monTroisiemeBouton); // bouton livres commençant par A
         container.add(monQuatriemeBouton); // bouton livres index impair
-        container.add(labelCR);
 
+        container.add(labelCR);
         container.add(crText);
 
 
@@ -124,7 +124,14 @@ public class AppliGraphique extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int annee = Integer.parseInt(maJtextFieldAnnee.getText());
                 Livre monLivre = createBook(maJtextFieldTitre.getText(), maJtextFieldAuteur.getText(), annee, maJtextFieldEditeur.getText(), maJtextFieldLangue.getText(), Integer.parseInt(maJtextFieldIndiceRef.getText()));
-                maBiblio.getListDeLivres().add(monLivre);
+
+                boolean isExist = verifieIndiceDuLivre(maJtextFieldIndiceRef, maBiblio);
+                if (isExist) {
+                    System.out.println("Je suis désolé mais l'indiceRef de ce livre existe déjà");
+                }else {
+
+                    maBiblio.getListDeLivres().add(monLivre);
+                }
             }
         });
 
@@ -148,6 +155,7 @@ public class AppliGraphique extends JFrame {
                 afficherLivreIndiceRefImpair(maBiblio, crText);
             }
         });
+
 
         // MENU DE L'APPLICATION
         JMenuBar menu = new JMenuBar();
@@ -180,18 +188,13 @@ public class AppliGraphique extends JFrame {
                 System.exit(0); // quand on clic sur Exit dans sous menu, la fenetre se ferme
             }
         });
-
-        /* JTextField field1 = new JTextField(10);
-        container.add(field1);
-        JOptionPane.showMessageDialog(null, container);
-        System.out.println(field1);*/
     }
 
     // METHODES
-    private void changeTextValue(JTextField maJtextFieldTitre, JLabel labelTitre) {
+    /*private void changeTextValue(JTextField maJtextFieldTitre, JLabel labelTitre) {
         maJtextFieldTitre.setText("Valider");
         labelTitre.setText("Auteur");
-    }
+    }*/
 
     private Livre createBook(String titre, String auteur, int annee, String editeur, String langue, int indiceRef) {
         Livre monLivre = new Livre(titre, auteur, annee, editeur, langue, indiceRef);
@@ -228,12 +231,15 @@ public class AppliGraphique extends JFrame {
         crText.setText(cr);
     }
 
-    private boolean verifieIndiceDuLivre(String indiceRef, ArrayList<Livre> listDeLivres) {
+
+    private boolean verifieIndiceDuLivre(JTextField maJTextField, Biblio maBiblio) {
         boolean isAlredyExist = false;
-        for (int i = 0; i<listDeLivres.size() ; i++){
-            Livre livreAVerifier = listDeLivres.get(i);
-            if (livreAVerifier.getIndiceRef() == Integer.parseInt(indiceRef.trim())){
-                isAlredyExist = true;
+            for (int i =0; i < maBiblio.getListDeLivres().size(); i++){
+                Livre livreAVerifier = maBiblio.getListDeLivres().get(i);
+                if (livreAVerifier.getIndiceRef() == Integer.parseInt(maJTextField.getText())){
+                    isAlredyExist = true;
+                    String popup;
+                    popup = JOptionPane.showInputDialog("l'indice réf existe déjà");
                 return isAlredyExist;
             }
         }

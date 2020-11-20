@@ -33,12 +33,7 @@ public class Biblio {
         return maSousListe;
     }
 
-    /**
-     * Méthode qui va à partir de la liste complète des livres de la
-     * bibliothèque retourner une sous liste de titre et d'indice de livres qui ont
-     * un indiceRef strictement impair
-     * @return   Une ArrayList de Titre de livre et son indice Ref qui est Impair
-     */
+
     public ArrayList<String> getAllBooksWhithIDSNOdd(){
         ArrayList<String> maSousListe = new ArrayList<>();
         for (int i = 0; i<this.getListDeLivres().size(); i++){
