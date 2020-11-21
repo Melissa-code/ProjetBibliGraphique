@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 
 public class AppliGraphique extends JFrame {
 
@@ -94,6 +96,17 @@ public class AppliGraphique extends JFrame {
         monQuatriemeBouton.setText("Liste de tous les livres à indice impair");
 
 
+        JRadioButton roman = new JRadioButton("Roman");
+        JRadioButton manga = new JRadioButton("Manga");
+        JRadioButton magazine = new JRadioButton("Magazine");
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(roman);
+        group.add(manga);
+        group.add(magazine);
+
+
+
         // AJOUTS SUR CONTAINER, layout déjà collé automatiquement sur le container
         // ajouts des labels et textfields et bouton valider sur container
         container.add(labelTitre); // Titre
@@ -116,6 +129,11 @@ public class AppliGraphique extends JFrame {
 
         container.add(labelCR);
         container.add(crText);
+
+
+        container.add(roman);
+        container.add(manga);
+        container.add(magazine);
 
 
         // GESTION ACTIONS DE L'UTILISATEUR
@@ -155,6 +173,14 @@ public class AppliGraphique extends JFrame {
                 afficherLivreIndiceRefImpair(maBiblio, crText);
             }
         });
+
+        /*
+        option1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                afficherRoman(maBiblio, crText);
+            }
+        });*/
 
 
         // MENU DE L'APPLICATION
@@ -246,3 +272,4 @@ public class AppliGraphique extends JFrame {
         return isAlredyExist;
     }
 }
+
